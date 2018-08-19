@@ -48,6 +48,9 @@
             <viewLayoutGuide key="safeArea" id="4j9-SV-j3Z"/>
             <size key="customSize" width="91" height="111"/>
             <connections>
+                <outlet property="ctnBottomIcon" destination="wPL-b2-uYi" id="pfR-Kn-SoS"/>
+                <outlet property="ctnHeightIcon" destination="zsr-dw-Qy4" id="Hhp-pA-g5t"/>
+                <outlet property="ctnTopIcon" destination="wTQ-5w-Ple" id="bAW-uG-cgo"/>
                 <outlet property="imgIcon" destination="6mA-yS-Oow" id="cn5-P9-FmP"/>
                 <outlet property="lblKeyword" destination="U9J-oF-DJL" id="4rm-4w-eAc"/>
             </connections>

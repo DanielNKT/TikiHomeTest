@@ -13,7 +13,10 @@ class THTDetailItemCollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var imgIcon: UIImageView!
     @IBOutlet weak var lblKeyword: THTCustomLable!
+    @IBOutlet weak var ctnTopIcon: NSLayoutConstraint!
+    @IBOutlet weak var ctnHeightIcon: NSLayoutConstraint!
     
+    @IBOutlet weak var ctnBottomIcon: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -22,7 +25,7 @@ class THTDetailItemCollectionCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        //self.imgIcon.image = nil;
+        self.imgIcon.image = nil;
     }
     
     func setupUI(){
@@ -36,7 +39,17 @@ class THTDetailItemCollectionCell: UICollectionViewCell {
     }
     
     func configCell(itemObj: THTItemObject, colorBackground:String) {
-        self.imgIcon.sd_setImage(with: URL(string: itemObj.iconItem!), completed: nil)
+        if(itemObj.iconItem != "")
+        {
+            self.imgIcon.sd_setImage(with: URL(string: itemObj.iconItem!), completed: nil)
+        }
+        else
+        {
+            self.ctnHeightIcon.constant = 0;
+            self.ctnTopIcon.constant = 0;
+            self.ctnBottomIcon.constant = 0;
+            self.imgIcon.isHidden = true
+        }
         self.lblKeyword.text = itemObj.keywordItem
         self.lblKeyword.backgroundColor = self.hexStringToUIColor(hex: colorBackground)
         self.lblKeyword.sizeToFit()

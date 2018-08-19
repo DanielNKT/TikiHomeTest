@@ -98,6 +98,7 @@ class THTSearchCell: UITableViewCell,  UICollectionViewDelegate, UICollectionVie
         else{
             if(arrayItems.count > 0)
             {
+                self.ctnHeightCollectionView.constant = 60;
                 self.lblTitle.text = "Lịch sử tìm kiếm"
                 //self.lblDescription.text = "Xoá tất cả"
                 
