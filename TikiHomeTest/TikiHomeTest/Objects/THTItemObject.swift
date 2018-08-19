@@ -11,9 +11,17 @@ import UIKit
 class THTItemObject: NSObject {
     var keywordItem: String
     var iconItem: String?
+    var timeSearch: NSInteger
     
     init(itemDic : [String:Any] ){
         keywordItem = itemDic["keyword"] as? String ?? ""
         iconItem = itemDic["icon"] as? String ?? ""
+        timeSearch = 0
+    }
+    
+    init(keywordItemValue: String, iconItemValue: String, timeSearchValue: NSInteger) {
+        keywordItem = keywordItemValue
+        iconItem = iconItemValue
+        timeSearch = timeSearchValue
     }
 }

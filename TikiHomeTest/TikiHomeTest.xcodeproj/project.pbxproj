@@ -22,6 +22,7 @@
 		DE8054F22127CAD000E89256 /* TikiHomeTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8054F12127CAD000E89256 /* TikiHomeTestUITests.swift */; };
 		DE8055042127CCB100E89256 /* THTCustomLable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8055032127CCB100E89256 /* THTCustomLable.swift */; };
 		DE8055082127D17300E89256 /* THTItemObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8055072127D17300E89256 /* THTItemObject.swift */; };
+		DEFA30782129C61D0082E31A /* THTItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFA30772129C61D0082E31A /* THTItemStore.swift */; };
 		F4ED1C883369FED42832DD8C /* Pods_TikiHomeTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FAE1E7AB765A6B66FB465F2 /* Pods_TikiHomeTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		DE8054F32127CAD000E89256 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE8055032127CCB100E89256 /* THTCustomLable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTCustomLable.swift; sourceTree = "<group>"; };
 		DE8055072127D17300E89256 /* THTItemObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTItemObject.swift; sourceTree = "<group>"; };
+		DEFA30772129C61D0082E31A /* THTItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTItemStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				DE8055072127D17300E89256 /* THTItemObject.swift */,
+				DEFA30772129C61D0082E31A /* THTItemStore.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE6F42B921281F9000CC19E6 /* THTDetailItemCollectionCell.swift in Sources */,
+				DEFA30782129C61D0082E31A /* THTItemStore.swift in Sources */,
 				DE6F42B521281EC400CC19E6 /* THTSearchCell.swift in Sources */,
 				DE8055082127D17300E89256 /* THTItemObject.swift in Sources */,
 				DE8055042127CCB100E89256 /* THTCustomLable.swift in Sources */,
@@ -705,7 +709,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8PFVN4V3ZV;
 				INFOPLIST_FILE = TikiHomeTest/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = toan.nktpersonal.programmer.TikiHomeTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -721,7 +728,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8PFVN4V3ZV;
 				INFOPLIST_FILE = TikiHomeTest/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = toan.nktpersonal.programmer.TikiHomeTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -737,7 +747,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = TikiHomeTestTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = toan.nktpersonal.programmer.TikiHomeTestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -754,7 +768,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = TikiHomeTestTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = toan.nktpersonal.programmer.TikiHomeTestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -770,7 +788,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = TikiHomeTestUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = toan.nktpersonal.programmer.TikiHomeTestUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -786,7 +808,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = TikiHomeTestUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = toan.nktpersonal.programmer.TikiHomeTestUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

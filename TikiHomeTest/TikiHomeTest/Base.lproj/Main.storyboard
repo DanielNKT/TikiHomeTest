@@ -38,6 +38,7 @@
                         </connections>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="zol-ex-Ucb" id="xhi-YC-Ok2"/>
                         <outlet property="searchDisplayController" destination="p4k-WX-DwX" id="vix-F4-HGh"/>
                         <outlet property="tbvContent" destination="c6r-df-MeQ" id="6uA-JM-Sum"/>
                     </connections>

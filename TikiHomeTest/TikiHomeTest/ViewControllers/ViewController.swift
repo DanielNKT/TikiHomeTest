@@ -8,12 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, THTSearchCellDelegate {
     
+    var itemStore: THTItemStore!
     var arrKeySearch : [THTItemObject] = []
     var arrHotKeyFromServerSearch : [THTItemObject] = []
-    var arrHistoryKeySearch : [THTItemObject] = []
+    var recentSearchText : String = ""
+    
     @IBOutlet weak var tbvContent: UITableView!
+    @IBOutlet var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +25,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.getJsonFromServer()
     }
     func setupUI(){
+        self.searchBar.delegate = self
         self.tbvContent.delegate = self
         self.tbvContent.dataSource = self
         self.tbvContent.register(UINib(nibName: "THTSearchCell", bundle: nil), forCellReuseIdentifier: "THTSearchCell");
@@ -42,12 +46,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             guard let data = data else { return }
             
             //For test json respone
-            let dataAsString = String(data: data, encoding: .utf8)
-            print(dataAsString ?? "Ko co data")
+            //let dataAsString = String(data: data, encoding: .utf8)
+            //print(dataAsString ?? "Ko co data")
             
             do {
                 guard let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] else { return }
-                print(jsonResult)
+                //print(jsonResult)
                 
                 if let result = jsonResult as? [String : Any], let arrItems = result["keywords"] as? [AnyObject] {
                     for itemDic in arrItems {
@@ -75,12 +79,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "THTSearchCell", for: indexPath) as! THTSearchCell
         cell.indexSection = indexPath.section
-        //        if(indexPath.section == 0)
-        //        {
-        //            cell.configCell(arrayItems: arrHotKeyFromServerSearch)
-        //        }
-        cell.configCell(arrayItems: arrHotKeyFromServerSearch)
-        
+        if(indexPath.section == 1)
+        {
+            cell.configCell(arrayItems: arrKeySearch)
+            
+        }
+        else
+        {
+            cell.configCell(arrayItems: arrHotKeyFromServerSearch)
+        }
+        cell.delegate = self
         cell.frame = tableView.bounds;
         cell.layoutIfNeeded();
 
@@ -90,16 +98,43 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        //return UITableViewAutomaticDimension;//Choose your custom row height
-        let cell = tableView.dequeueReusableCell(withIdentifier: "THTSearchCell") as! THTSearchCell;
-        return self.calculateHeightForConfiguredSizingCell(sizingCell: cell)
+        return UITableViewAutomaticDimension
     }
     
-    func calculateHeightForConfiguredSizingCell(sizingCell: THTSearchCell) -> CGFloat {
-        sizingCell.contentView.setNeedsDisplay()
-        sizingCell.contentView.layoutIfNeeded()
-        let size = sizingCell.contentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize) as CGSize
-        return size.height
+    //MARK -- SearchBar SearchButtonClicked
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        if(recentSearchText != "")
+        {
+            searchBar.text = recentSearchText
+        }
+        return true
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let searchText = searchBar.text
+        recentSearchText = searchText!
+        searchBar.placeholder = recentSearchText
+        searchBar.text = ""
+        let trimmedSearchText = searchText?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let currentDateTime = Date().timeIntervalSince1970
+        
+        if(!(trimmedSearchText?.isEmpty)!)
+        {
+            let itemObj = THTItemObject.init(keywordItemValue: trimmedSearchText!, iconItemValue: "", timeSearchValue: NSInteger(currentDateTime));
+            
+            itemStore = THTItemStore()
+            itemStore.createItem(itemObject: itemObj)
+            arrKeySearch = itemStore.allItems
+            
+            //error when save
+//            let insertItemOk = itemStore.saveChanges() as Bool
+//            if(insertItemOk){
+//                print("insert item ok")
+//            }
+        }
+    }
+    func removeAllItemSuccess() {
+        //reload section second when remove success
+        self.tbvContent.reloadSections(IndexSet(integersIn: 1...1), with: .none)
     }
     
     override func didReceiveMemoryWarning() {

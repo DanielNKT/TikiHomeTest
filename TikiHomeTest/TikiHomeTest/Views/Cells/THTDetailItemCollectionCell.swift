@@ -13,28 +13,34 @@ class THTDetailItemCollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var imgIcon: UIImageView!
     @IBOutlet weak var lblKeyword: THTCustomLable!
-    @IBOutlet weak var ctnHeightLabel: NSLayoutConstraint!
-    @IBOutlet weak var ctnHeightCell: NSLayoutConstraint!
-    @IBOutlet weak var vieContainer: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         self.setupUI()
     }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         //self.imgIcon.image = nil;
     }
+    
     func setupUI(){
-        self.backgroundColor = UIColor.yellow
+        //self.backgroundColor = UIColor.yellow
         self.imgIcon.backgroundColor = UIColor.groupTableViewBackground
+//        self.imgIcon.layer.cornerRadius = self.imgIcon.frame.size.height/2
+//        self.imgIcon.clipsToBounds = true;
+        self.lblKeyword.font = UIFont.systemFont(ofSize: 14.0)
+        self.lblKeyword.lineBreakMode = .byWordWrapping
+        self.lblKeyword.numberOfLines = 2;
     }
+    
     func configCell(itemObj: THTItemObject, colorBackground:String) {
         self.imgIcon.sd_setImage(with: URL(string: itemObj.iconItem!), completed: nil)
         self.lblKeyword.text = itemObj.keywordItem
         self.lblKeyword.backgroundColor = self.hexStringToUIColor(hex: colorBackground)
         self.lblKeyword.sizeToFit()
+        self.lblKeyword.textColor = UIColor.white
         self.contentView.setNeedsLayout()
         self.contentView.updateConstraints()
         self.contentView.layoutIfNeeded()
@@ -60,9 +66,5 @@ class THTDetailItemCollectionCell: UICollectionViewCell {
             blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
             alpha: CGFloat(1.0)
         )
-    }
-    
-    func reuseIdentifier() -> String {
-        return NSStringFromClass(THTItemObject.self)
     }
 }

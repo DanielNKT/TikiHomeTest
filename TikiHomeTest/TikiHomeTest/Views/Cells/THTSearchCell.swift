@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol THTSearchCellDelegate: class {
+    func removeAllItemSuccess()
+}
+
 class THTSearchCell: UITableViewCell,  UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    weak var delegate: THTSearchCellDelegate?
     
     @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var lblTitle: UILabel!
@@ -24,10 +30,14 @@ class THTSearchCell: UITableViewCell,  UICollectionViewDelegate, UICollectionVie
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.setupUITest()
+        self.setupUI()
     }
-    
-    func setupUITest() {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.lblTitle.text = ""
+        self.lblDescription.text = ""
+    }
+    func setupUI() {
         self.selectionStyle = .none
         self.vieSeparatorLine.backgroundColor = UIColor.groupTableViewBackground
         self.clvItem.delegate = self
@@ -37,6 +47,25 @@ class THTSearchCell: UITableViewCell,  UICollectionViewDelegate, UICollectionVie
             collectionViewFlowLayout.estimatedItemSize = CGSize(width: 50, height: 50)
             collectionViewFlowLayout.scrollDirection = .horizontal
             // Use collectionViewFlowLayout
+        }
+        
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapResponse))
+        tapGesture.numberOfTapsRequired = 1
+        self.lblDescription.isUserInteractionEnabled =  true
+        self.lblDescription.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func tapResponse(recognizer: UITapGestureRecognizer) {
+        let itemStore = THTItemStore()
+        itemStore.removeAllItem()
+        let removeAllOk = itemStore.saveChanges() as Bool
+        if(removeAllOk)
+        {
+            guard let method = self.delegate?.removeAllItemSuccess() else {
+                // optional not implemented
+                return
+            }
+            self.delegate?.removeAllItemSuccess()
         }
     }
     
@@ -67,27 +96,36 @@ class THTSearchCell: UITableViewCell,  UICollectionViewDelegate, UICollectionVie
             self.lblDescription.text = ""
         }
         else{
-            self.lblTitle.text = "Lịch sử tìm kiếm"
-            self.lblDescription.text = "Xoá tất cả"
+            if(arrayItems.count > 0)
+            {
+                self.lblTitle.text = "Lịch sử tìm kiếm"
+                //self.lblDescription.text = "Xoá tất cả"
+                
+                let strokeTextAttributes = [
+                    NSAttributedStringKey.foregroundColor : UIColor.blue,
+                    NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue,
+                    NSAttributedStringKey.font : UIFont.systemFont(ofSize: 16)
+                    ] as [NSAttributedStringKey : Any]
+                
+                self.lblDescription.attributedText = NSAttributedString(string: "Xoá tất cả", attributes: strokeTextAttributes)
+            }
+            else
+            {
+                self.lblTitle.text = ""
+                self.lblDescription.text = ""
+                self.lblDescription.isHidden = true
+                self.vieSeparatorLine.backgroundColor = UIColor.white
+            }
         }
         arrItems = arrayItems
         self.clvItem.reloadData()
         self.contentView.layoutIfNeeded()
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
     }
-    
-    //    override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
-    //        // With autolayout enabled on collection view's cells we need to force a collection view relayout with the shown size (width)
-    //        self.clvItem.frame = CGRect(x: 0, y: 0, width: targetSize.width, height: CGFloat(MAXFLOAT));
-    //        self.clvItem.layoutIfNeeded();
-    //        return self.clvItem.collectionViewLayout.collectionViewContentSize
-    //    }
-    
-    func reuseIdentifier() -> String {
-        return NSStringFromClass(THTItemObject.self)
-    }
+
 }
