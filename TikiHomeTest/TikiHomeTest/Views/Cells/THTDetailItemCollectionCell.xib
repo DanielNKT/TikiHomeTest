@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="tN6-iv-b0T" customClass="THTDetailItemCollectionCell" customModule="TikiHomeTest" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="148" height="111"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="148" height="111"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.89999997615814209" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U9J-oF-DJL" customClass="THTCustomLable" customModule="TikiHomeTest" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="76" width="148" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="148" id="Hhn-B6-RP3"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6mA-yS-Oow">
+                        <rect key="frame" x="44" y="8" width="60" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="ssG-yo-gme"/>
+                            <constraint firstAttribute="height" constant="60" id="zsr-dw-Qy4"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="U9J-oF-DJL" firstAttribute="leading" secondItem="tN6-iv-b0T" secondAttribute="leading" id="33e-1Z-ne7"/>
+                <constraint firstItem="6mA-yS-Oow" firstAttribute="centerX" secondItem="tN6-iv-b0T" secondAttribute="centerX" id="LIO-8F-uup"/>
+                <constraint firstAttribute="trailing" secondItem="U9J-oF-DJL" secondAttribute="trailing" id="wFi-ed-o8X"/>
+                <constraint firstItem="U9J-oF-DJL" firstAttribute="top" secondItem="6mA-yS-Oow" secondAttribute="bottom" constant="8" id="wPL-b2-uYi"/>
+                <constraint firstItem="6mA-yS-Oow" firstAttribute="top" secondItem="4j9-SV-j3Z" secondAttribute="top" constant="8" id="wTQ-5w-Ple"/>
+                <constraint firstAttribute="bottom" secondItem="U9J-oF-DJL" secondAttribute="bottom" id="xeU-tk-Gbt"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="4j9-SV-j3Z"/>
+            <size key="customSize" width="148" height="111"/>
+            <connections>
+                <outlet property="imgIcon" destination="6mA-yS-Oow" id="cn5-P9-FmP"/>
+                <outlet property="lblKeyword" destination="U9J-oF-DJL" id="4rm-4w-eAc"/>
+            </connections>
+            <point key="canvasLocation" x="-34" y="128.5"/>
+        </collectionViewCell>
+    </objects>
+</document>
