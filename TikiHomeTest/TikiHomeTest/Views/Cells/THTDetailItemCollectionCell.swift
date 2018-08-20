@@ -39,11 +39,12 @@ class THTDetailItemCollectionCell: UICollectionViewCell {
     func setupUI(){
         //self.backgroundColor = UIColor.yellow
         self.imgIcon.backgroundColor = UIColor.groupTableViewBackground
-//        self.imgIcon.layer.cornerRadius = self.imgIcon.frame.size.height/2
-//        self.imgIcon.clipsToBounds = true;
+        self.imgIcon.layer.cornerRadius = 5
+        self.imgIcon.clipsToBounds = true;
         self.lblKeyword.font = UIFont.systemFont(ofSize: 14.0)
-        self.lblKeyword.lineBreakMode = .byWordWrapping
         self.lblKeyword.numberOfLines = 2;
+        self.lblKeyword.lineBreakMode = .byWordWrapping
+        self.lblKeyword.textColor = UIColor.white
         
         let tapGestureLable: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapResponse))
         tapGestureLable.numberOfTapsRequired = 1
@@ -79,10 +80,10 @@ class THTDetailItemCollectionCell: UICollectionViewCell {
         self.lblKeyword.text = itemObj.keywordItem
         self.lblKeyword.backgroundColor = self.hexStringToUIColor(hex: colorBackground)
         self.lblKeyword.sizeToFit()
-        self.lblKeyword.textColor = UIColor.white
+        self.lblKeyword.layoutSubviews()
         self.contentView.setNeedsLayout()
-        self.contentView.updateConstraints()
         self.contentView.layoutIfNeeded()
+        self.contentView.updateConstraints()
     }
     
     func hexStringToUIColor (hex:String) -> UIColor {
