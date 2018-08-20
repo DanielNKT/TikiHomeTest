@@ -9,10 +9,11 @@
 import UIKit
 
 protocol THTSearchCellDelegate: class {
-    func removeAllItemSuccess()
+    func tapDeleteAllItem()
+    func tapItemCell(itemObj: THTItemObject)
 }
 
-class THTSearchCell: UITableViewCell,  UICollectionViewDelegate, UICollectionViewDataSource {
+class THTSearchCell: UITableViewCell,  UICollectionViewDelegate, UICollectionViewDataSource, THTDetailItemCollectionCellDelegate {
     
     weak var delegate: THTSearchCellDelegate?
     
@@ -56,16 +57,9 @@ class THTSearchCell: UITableViewCell,  UICollectionViewDelegate, UICollectionVie
     }
     
     @objc func tapResponse(recognizer: UITapGestureRecognizer) {
-        let itemStore = THTItemStore()
-        itemStore.removeAllItem()
-        let removeAllOk = itemStore.saveChanges() as Bool
-        if(removeAllOk)
-        {
-            guard let method = self.delegate?.removeAllItemSuccess() else {
-                // optional not implemented
-                return
-            }
-            self.delegate?.removeAllItemSuccess()
+        guard let method = self.delegate?.tapDeleteAllItem() else {
+            // optional not implemented
+            return
         }
     }
     
@@ -86,10 +80,16 @@ class THTSearchCell: UITableViewCell,  UICollectionViewDelegate, UICollectionVie
         {
             colorString = arrColor[indexPath.item]
         }
+        cell.delegate = self
         cell.configCell(itemObj: arrItems[indexPath.item], colorBackground:colorString!)
         return cell
     }
-    
+    func tapItem(itemObj: THTItemObject) {
+        guard let method = self.delegate?.tapItemCell(itemObj: itemObj) else {
+            // optional not implemented
+            return
+        }
+    }
     func configCell(arrayItems : [THTItemObject]){
         if(indexSection == 0){
             self.lblTitle.text = "Từ khoá hot"
@@ -98,6 +98,7 @@ class THTSearchCell: UITableViewCell,  UICollectionViewDelegate, UICollectionVie
         else{
             if(arrayItems.count > 0)
             {
+                self.lblDescription.isHidden = false
                 self.ctnHeightCollectionView.constant = 60;
                 self.lblTitle.text = "Lịch sử tìm kiếm"
                 //self.lblDescription.text = "Xoá tất cả"

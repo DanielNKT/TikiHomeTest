@@ -9,7 +9,15 @@
 import UIKit
 import SDWebImage
 
+protocol THTDetailItemCollectionCellDelegate: class {
+    func tapItem(itemObj: THTItemObject)
+}
+
 class THTDetailItemCollectionCell: UICollectionViewCell {
+    
+    var _itemObj : THTItemObject!
+    
+    weak var delegate: THTDetailItemCollectionCellDelegate?
     
     @IBOutlet weak var imgIcon: UIImageView!
     @IBOutlet weak var lblKeyword: THTCustomLable!
@@ -36,9 +44,27 @@ class THTDetailItemCollectionCell: UICollectionViewCell {
         self.lblKeyword.font = UIFont.systemFont(ofSize: 14.0)
         self.lblKeyword.lineBreakMode = .byWordWrapping
         self.lblKeyword.numberOfLines = 2;
+        
+        let tapGestureLable: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapResponse))
+        tapGestureLable.numberOfTapsRequired = 1
+        self.lblKeyword.isUserInteractionEnabled =  true
+        self.lblKeyword.addGestureRecognizer(tapGestureLable)
+        
+        let tapGestureImage: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapResponse))
+        tapGestureImage.numberOfTapsRequired = 1
+        self.imgIcon.isUserInteractionEnabled =  true
+        self.imgIcon.addGestureRecognizer(tapGestureImage)
+    }
+    
+    @objc func tapResponse(recognizer: UITapGestureRecognizer) {
+        guard let method = self.delegate?.tapItem(itemObj: _itemObj) else {
+            // optional not implemented
+            return
+        }
     }
     
     func configCell(itemObj: THTItemObject, colorBackground:String) {
+        _itemObj = itemObj
         if(itemObj.iconItem != "")
         {
             self.imgIcon.sd_setImage(with: URL(string: itemObj.iconItem!), completed: nil)
